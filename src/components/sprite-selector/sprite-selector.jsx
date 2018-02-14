@@ -55,6 +55,8 @@ const SpriteSelectorComponent = function (props) {
         onDeleteSprite,
         onDuplicateSprite,
         onNewSpriteClick,
+        onSurpriseSpriteClick,
+        onPaintSpriteClick,
         onSelectSprite,
         selectedId,
         sprites,
@@ -123,11 +125,11 @@ const SpriteSelectorComponent = function (props) {
                     }, {
                         title: intl.formatMessage(messages.addSpriteFromSurprise),
                         img: surpriseIcon,
-                        onClick: onNewSpriteClick // TODO need real function for this
+                        onClick: onSurpriseSpriteClick // TODO need real function for this
                     }, {
                         title: intl.formatMessage(messages.addSpriteFromPaint),
                         img: paintIcon,
-                        onClick: onNewSpriteClick // TODO need real function for this
+                        onClick: onPaintSpriteClick // TODO need real function for this
                     }
                 ]}
                 title={intl.formatMessage(messages.addSpriteFromLibrary)}

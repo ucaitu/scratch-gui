@@ -65,7 +65,7 @@ const GUIComponent = props => {
     };
 
     const isRendererSupported = Renderer.isSupported();
-
+    console.log('tab index', tabIndex);
     return (
         <Box
             className={styles.pageWrapper}
@@ -90,6 +90,7 @@ const GUIComponent = props => {
                             selectedTabClassName={tabClassNames.tabSelected}
                             selectedTabPanelClassName={tabClassNames.tabPanelSelected}
                             onSelect={onTabSelect}
+                            selectedIndex={tabIndex}
                         >
                             <TabList className={tabClassNames.tabList}>
                                 <Tab className={tabClassNames.tab}>Blocks</Tab>

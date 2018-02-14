@@ -9,6 +9,7 @@ import targetReducer from './targets';
 import toolboxReducer from './toolbox';
 import vmReducer from './vm';
 import stageSizeReducer from './stage-size';
+import tabsReducer from './tabs';
 import {ScratchPaintReducer} from 'scratch-paint';
 
 export default combineReducers({
@@ -22,5 +23,6 @@ export default combineReducers({
     targets: targetReducer,
     toolbox: toolboxReducer,
     vm: vmReducer,
-    scratchPaint: ScratchPaintReducer
+    scratchPaint: ScratchPaintReducer,
+    tabs: tabsReducer
 });

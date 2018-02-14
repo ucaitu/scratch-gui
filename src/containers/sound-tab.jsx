@@ -17,6 +17,8 @@ import RecordModal from './record-modal.jsx';
 import SoundEditor from './sound-editor.jsx';
 import SoundLibrary from './sound-library.jsx';
 
+import soundLibraryContent from '../lib/libraries/sounds.json';
+
 import {connect} from 'react-redux';
 
 import {
@@ -31,7 +33,8 @@ class SoundTab extends React.Component {
         bindAll(this, [
             'handleSelectSound',
             'handleDeleteSound',
-            'handleNewSound'
+            'handleNewSound',
+            'handleSurpriseSound'
         ]);
         this.state = {selectedSoundIndex: 0};
     }
@@ -65,6 +68,25 @@ class SoundTab extends React.Component {
         const sprite = this.props.vm.editingTarget.sprite;
         const sounds = sprite.sounds ? sprite.sounds : [];
         this.setState({selectedSoundIndex: Math.max(sounds.length - 1, 0)});
+    }
+
+    handleSurpriseSound () {
+        const soundItem = soundLibraryContent[Math.floor(Math.random() * soundLibraryContent.length)];
+        const vmSound = {
+            format: soundItem.format,
+            md5: soundItem.md5,
+            rate: soundItem.rate,
+            sampleCount: soundItem.sampleCount,
+            name: soundItem.name
+        };
+        this.props.vm.addSound(vmSound).then(() => {
+            this.handleNewSound();
+            const sounds = this.props.vm.editingTarget.getSounds();
+            const lastSound = sounds[sounds.length - 1];
+            const id = lastSound.soundId;
+            this.props.vm.editingTarget.audioPlayer.stopAllSounds();
+            this.props.vm.editingTarget.audioPlayer.playSound(id);
+        });
     }
 
     render () {
@@ -122,7 +144,8 @@ class SoundTab extends React.Component {
                     img: fileUploadIcon
                 }, {
                     message: intl.formatMessage(messages.surpriseSound),
-                    img: surpriseIcon
+                    img: surpriseIcon,
+                    onClick: this.handleSurpriseSound
                 }, {
                     message: intl.formatMessage(messages.recordSound),
                     img: addSoundFromRecordingIcon,

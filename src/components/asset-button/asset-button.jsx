@@ -58,7 +58,6 @@ class AssetButton extends React.Component {
                     data-for={mainTooltipId}
                     data-place={'left'}
                     data-tip={mainTitle}
-                    title={mainTitle}
                     onClick={onClick}
                 >
                     <img
@@ -88,7 +87,6 @@ class AssetButton extends React.Component {
                                         data-place={'left'}
                                         data-tip={title}
                                         // disabled={isComingSoon}
-                                        title={title}
                                         onClick={handleClick}
                                     >
                                         <img

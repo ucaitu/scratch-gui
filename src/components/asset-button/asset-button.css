@@ -22,10 +22,11 @@ $more-button-size: 2.25rem;
     height: $main-button-size;
     outline: none;
     border: none;
+    transition: background-color 0.2s;
 }
 
 .menu-container > .container { /* TODO use class names instead of first child */
-    z-index: 2; /* TODO reorder layout to prevent z-index need */
+    z-index: 20; /* TODO reorder layout to prevent z-index need */
 }
 
 
@@ -43,7 +44,7 @@ $more-button-size: 2.25rem;
     overflow-y: hidden;
     margin-bottom: calc($main-button-size / -2);
     padding-bottom: calc($main-button-size / 2);
-    background: $motion-primary;
+    background: $motion-tertiary;
     border-top-left-radius: $more-button-size;
     border-top-right-radius: $more-button-size;
     width: $more-button-size;
@@ -52,14 +53,14 @@ $more-button-size: 2.25rem;
 
 .more-buttons {
     max-height: 0;
-    transition: max-height 0.5s;
+    transition: max-height 1s;
 
     overflow-x: visible;
 
     display: flex;
     flex-direction: column;
 
-    z-index: 1; /* TODO re-order layout to not need z-indexing */
+    z-index: 10; /* TODO re-order layout to not need z-indexing */
 }
 
 .more-buttons .icon {
@@ -71,10 +72,11 @@ $more-button-size: 2.25rem;
     max-height: 1000px; /* Needs to be a value to animate */
 }
 
-.expanded .more-buttons .container { /* TODO use classnames instead of structure */
+.more-buttons .container { /* TODO use classnames instead of structure */
     width: $more-button-size;
     height: $more-button-size;
     border-radius: 0;
+    background: $motion-tertiary;
 }
 
 .more-buttons:first-child { /* TODO use classnames instead of structure */
@@ -82,12 +84,20 @@ $more-button-size: 2.25rem;
     border-top-left-radius: $more-button-size;
 }
 
-.expanded .more-buttons .container:hover {
+.container:hover {
     background: $pen-primary;
 }
 
-.expanded .more-buttons .container.coming-soon:hover {
+.more-buttons .container:hover {
+    background: $pen-primary;
+}
+
+.more-buttons .container.coming-soon:hover {
     background: $data-primary;
+}
+
+.more-buttons .container.coming-soon > img { /* TODO replace w/ sELECTOR */
+    opacity: 0.5;
 }
 
 
@@ -95,6 +105,7 @@ $more-button-size: 2.25rem;
 /* TODO mostly copied from coming soon, should refactor */
 .tooltip {
     background-color: $pen-primary !important; /* TODO not the right color */
+    opacity: 1 !important;
     border: 1px solid hsla(0, 0%, 0%, .1) !important;
     /* border-radius: .25rem !important; */
     box-shadow: 0 0 .5rem hsla(0, 0%, 0%, .25) !important;

@@ -27,6 +27,7 @@ import cameraIcon from '../components/asset-button/icon--camera.svg';
 import surpriseIcon from '../components/asset-button/icon--surprise.svg';
 
 import costumeLibraryContent from '../lib/libraries/costumes.json';
+import backdropLibraryContent from '../lib/libraries/backdrops.json';
 
 const messages = defineMessages({
     addLibraryCostumeMsg: {
@@ -40,7 +41,7 @@ const messages = defineMessages({
         id: 'gui.costumeTab.addBlankCostume'
     },
     addSurpriseCostumeMsg: {
-        defaultMessage: 'Surpprise',
+        defaultMessage: 'Surprise',
         description: 'Button to add a surprise costume in the editor tab',
         id: 'gui.costumeTab.addSurpriseCostume'
     },
@@ -63,7 +64,9 @@ class CostumeTab extends React.Component {
             'handleSelectCostume',
             'handleDeleteCostume',
             'handleNewCostume',
-            'handleNewBlankCostume'
+            'handleNewBlankCostume',
+            'handleSurpriseCostume',
+            'handleSurpriseBackdrop'
         ]);
         this.state = {selectedCostumeIndex: 0};
     }
@@ -108,6 +111,32 @@ class CostumeTab extends React.Component {
             this.handleNewCostume();
         });
     }
+    handleSurpriseCostume () {
+        const item = costumeLibraryContent[Math.floor(Math.random() * costumeLibraryContent.length)];
+        const vmCostume = {
+            name: item.name,
+            rotationCenterX: item.info[0],
+            rotationCenterY: item.info[1],
+            bitmapResolution: item.info.length > 2 ? item.info[2] : 1,
+            skinId: null
+        };
+        this.props.vm.addCostume(item.md5, vmCostume).then(() => {
+            this.handleNewCostume();
+        });
+    }
+    handleSurpriseBackdrop () {
+        const item = backdropLibraryContent[Math.floor(Math.random() * backdropLibraryContent.length)];
+        const vmCostume = {
+            name: item.name,
+            rotationCenterX: item.info[0],
+            rotationCenterY: item.info[1],
+            bitmapResolution: item.info.length > 2 ? item.info[2] : 1,
+            skinId: null
+        };
+        this.props.vm.addCostume(item.md5, vmCostume).then(() => {
+            this.handleNewCostume();
+        });
+    }
     render () {
         // For paint wrapper
         const {
@@ -134,6 +163,7 @@ class CostumeTab extends React.Component {
             return null;
         }
 
+        const addSurpriseFunc = target.isStage ? this.handleSurpriseBackdrop : this.handleSurpriseCostume;
         const addLibraryFunc = target.isStage ? onNewLibraryBackdropClick : onNewLibraryCostumeClick;
         const addLibraryIcon = target.isStage ? addLibraryBackdropIcon : addLibraryCostumeIcon;
 
@@ -155,7 +185,8 @@ class CostumeTab extends React.Component {
                     },
                     {
                         message: intl.formatMessage(messages.addSurpriseCostumeMsg),
-                        img: surpriseIcon
+                        img: surpriseIcon,
+                        onClick: addSurpriseFunc
                     },
                     {
                         message: intl.formatMessage(messages.addBlankCostumeMsg),

@@ -11,13 +11,14 @@ import vmListenerHOC from '../lib/vm-listener-hoc.jsx';
 
 import GUIComponent from '../components/gui/gui.jsx';
 
+import {setTab} from '../reducers/tabs.js';
+
 class GUI extends React.Component {
     constructor (props) {
         super(props);
         bindAll(this, [
             'handleTabSelect'
         ]);
-        this.state = {tabIndex: 0};
     }
     componentDidMount () {
         this.audioEngine = new AudioEngine();
@@ -35,19 +36,21 @@ class GUI extends React.Component {
         this.props.vm.stopAll();
     }
     handleTabSelect (tabIndex) {
-        this.setState({tabIndex});
+        console.log(tabIndex)
+        this.props.onSetTab(tabIndex);
     }
     render () {
         const {
             children,
             projectData, // eslint-disable-line no-unused-vars
             vm,
+            tab,
             ...componentProps
         } = this.props;
         return (
             <GUIComponent
                 enableExtensions={window.location.search.includes('extensions')}
-                tabIndex={this.state.tabIndex}
+                tabIndex={tab}
                 vm={vm}
                 onTabSelect={this.handleTabSelect}
                 {...componentProps}
@@ -70,11 +73,13 @@ GUI.defaultProps = GUIComponent.defaultProps;
 
 const mapStateToProps = state => ({
     feedbackFormVisible: state.modals.feedbackForm,
-    previewInfoVisible: state.modals.previewInfo
+    previewInfoVisible: state.modals.previewInfo,
+    tab: state.tabs.tab
 });
 
 const mapDispatchToProps = dispatch => ({
-    onExtensionButtonClick: () => dispatch(openExtensionLibrary())
+    onExtensionButtonClick: () => dispatch(openExtensionLibrary()),
+    onSetTab: (tab) => dispatch(setTab(tab))
 });
 
 const ConnectedGUI = connect(
