@@ -20,28 +20,39 @@ import {
 import addBlankCostumeIcon from '../components/asset-panel/icon--add-blank-costume.svg';
 import addLibraryBackdropIcon from '../components/asset-panel/icon--add-backdrop-lib.svg';
 import addLibraryCostumeIcon from '../components/asset-panel/icon--add-costume-lib.svg';
+import fileUploadIcon from '../components/asset-button/icon--file-upload.svg';
+import paintIcon from '../components/asset-button/icon--paint.svg';
+import spriteIcon from '../components/asset-button/icon--sprite.svg';
+import cameraIcon from '../components/asset-button/icon--camera.svg';
+import surpriseIcon from '../components/asset-button/icon--surprise.svg';
+
 import costumeLibraryContent from '../lib/libraries/costumes.json';
 
 const messages = defineMessages({
-    addLibraryBackdropMsg: {
-        defaultMessage: 'Add Backdrop From Library',
-        description: 'Button to add a backdrop in the editor tab',
-        id: 'gui.costumeTab.addBackdrop'
-    },
     addLibraryCostumeMsg: {
-        defaultMessage: 'Add Costume From Library',
+        defaultMessage: 'Library',
         description: 'Button to add a costume in the editor tab',
         id: 'gui.costumeTab.addCostume'
     },
-    addBlankBackdropMsg: {
-        defaultMessage: 'Add Blank Backdrop',
-        description: 'Button to add a blank backdrop in the editor tab',
-        id: 'gui.costumeTab.addBlankBackdrop'
-    },
     addBlankCostumeMsg: {
-        defaultMessage: 'Add Blank Costume',
+        defaultMessage: 'Paint',
         description: 'Button to add a blank costume in the editor tab',
         id: 'gui.costumeTab.addBlankCostume'
+    },
+    addSurpriseCostumeMsg: {
+        defaultMessage: 'Surpprise',
+        description: 'Button to add a surprise costume in the editor tab',
+        id: 'gui.costumeTab.addSurpriseCostume'
+    },
+    addFileCostumeMsg: {
+        defaultMessage: 'Coming Soon',
+        description: 'Button to add a file upload costume in the editor tab',
+        id: 'gui.costumeTab.addFileCostume'
+    },
+    addCameraCostumeMsg: {
+        defaultMessage: 'Coming Soon',
+        description: 'Button to use the camera to create a costume costume in the editor tab',
+        id: 'gui.costumeTab.addCameraCostume'
     }
 });
 
@@ -123,8 +134,6 @@ class CostumeTab extends React.Component {
             return null;
         }
 
-        const addLibraryMessage = target.isStage ? messages.addLibraryBackdropMsg : messages.addLibraryCostumeMsg;
-        const addBlankMessage = target.isStage ? messages.addBlankBackdropMsg : messages.addBlankCostumeMsg;
         const addLibraryFunc = target.isStage ? onNewLibraryBackdropClick : onNewLibraryCostumeClick;
         const addLibraryIcon = target.isStage ? addLibraryBackdropIcon : addLibraryCostumeIcon;
 
@@ -132,14 +141,26 @@ class CostumeTab extends React.Component {
             <AssetPanel
                 buttons={[
                     {
-                        message: intl.formatMessage(addBlankMessage),
-                        img: addBlankCostumeIcon,
-                        onClick: this.handleNewBlankCostume
-                    },
-                    {
-                        message: intl.formatMessage(addLibraryMessage),
+                        message: intl.formatMessage(messages.addLibraryCostumeMsg),
                         img: addLibraryIcon,
                         onClick: addLibraryFunc
+                    },
+                    {
+                        message: intl.formatMessage(messages.addCameraCostumeMsg),
+                        img: cameraIcon
+                    },
+                    {
+                        message: intl.formatMessage(messages.addFileCostumeMsg),
+                        img: fileUploadIcon
+                    },
+                    {
+                        message: intl.formatMessage(messages.addSurpriseCostumeMsg),
+                        img: surpriseIcon
+                    },
+                    {
+                        message: intl.formatMessage(messages.addBlankCostumeMsg),
+                        img: paintIcon,
+                        onClick: this.handleNewBlankCostume
                     }
                 ]}
                 items={target.costumes || []}

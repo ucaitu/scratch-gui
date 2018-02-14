@@ -8,6 +8,11 @@ import AssetPanel from '../components/asset-panel/asset-panel.jsx';
 import soundIcon from '../components/asset-panel/icon--sound.svg';
 import addSoundFromLibraryIcon from '../components/asset-panel/icon--add-sound-lib.svg';
 import addSoundFromRecordingIcon from '../components/asset-panel/icon--add-sound-record.svg';
+// TODO normalize filenames, paths for these icons (ALSO COSTUME TAB)
+import fileUploadIcon from '../components/asset-button/icon--file-upload.svg';
+import surpriseIcon from '../components/asset-button/icon--surprise.svg';
+
+
 import RecordModal from './record-modal.jsx';
 import SoundEditor from './sound-editor.jsx';
 import SoundLibrary from './sound-library.jsx';
@@ -84,6 +89,16 @@ class SoundTab extends React.Component {
         )) : [];
 
         const messages = defineMessages({
+            fileUploadSound: {
+                defaultMessage: 'Coming Soon',
+                description: 'Button to upload sound from file in the editor tab',
+                id: 'gui.soundTab.fileUploadSound'
+            },
+            surpriseSound: {
+                defaultMessage: 'Surprise',
+                description: 'Button to get a random sound in the editor tab',
+                id: 'gui.soundTab.surpriseSound'
+            },
             recordSound: {
                 defaultMessage: 'Record Sound',
                 description: 'Button to record a sound in the editor tab',
@@ -99,13 +114,19 @@ class SoundTab extends React.Component {
         return (
             <AssetPanel
                 buttons={[{
-                    message: intl.formatMessage(messages.recordSound),
-                    img: addSoundFromRecordingIcon,
-                    onClick: onNewSoundFromRecordingClick
-                }, {
                     message: intl.formatMessage(messages.addSound),
                     img: addSoundFromLibraryIcon,
                     onClick: onNewSoundFromLibraryClick
+                }, {
+                    message: intl.formatMessage(messages.fileUploadSound),
+                    img: fileUploadIcon
+                }, {
+                    message: intl.formatMessage(messages.surpriseSound),
+                    img: surpriseIcon
+                }, {
+                    message: intl.formatMessage(messages.recordSound),
+                    img: addSoundFromRecordingIcon,
+                    onClick: onNewSoundFromRecordingClick
                 }]}
                 items={sounds.map(sound => ({
                     url: soundIcon,
